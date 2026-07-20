@@ -1,0 +1,121 @@
+# Vercel Dark theme for Helix
+# Palette derived from https://github.com/chungweileong94/ghostty-vercel-theme
+
+"ui.background" = { bg = "background" }
+"ui.text" = "foreground"
+"ui.text.focus" = "white"
+
+"ui.linenr" = { fg = "gray" }
+"ui.linenr.selected" = { fg = "white" }
+
+"ui.cursor" = { fg = "background", bg = "blue" }
+"ui.cursor.primary" = { fg = "background", bg = "blue" }
+"ui.cursor.match" = { fg = "yellow", modifiers = ["underlined"] }
+"ui.cursorline.primary" = { bg = "bg-highlight" }
+
+"ui.selection" = { bg = "selection" }
+"ui.selection.primary" = { bg = "selection" }
+
+"ui.statusline" = { fg = "foreground", bg = "bg-highlight" }
+"ui.statusline.inactive" = { fg = "gray", bg = "bg-highlight" }
+"ui.statusline.normal" = { fg = "background", bg = "blue", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "background", bg = "green", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "background", bg = "magenta", modifiers = ["bold"] }
+
+"ui.bufferline" = { fg = "gray", bg = "bg-highlight" }
+"ui.bufferline.active" = { fg = "foreground", bg = "background" }
+
+"ui.popup" = { fg = "foreground", bg = "bg-highlight" }
+"ui.window" = { fg = "bright-black" }
+"ui.help" = { fg = "foreground", bg = "bg-highlight" }
+
+"ui.menu" = { fg = "foreground", bg = "bg-highlight" }
+"ui.menu.selected" = { fg = "background", bg = "blue" }
+"ui.menu.scroll" = { fg = "gray", bg = "bg-highlight" }
+
+"ui.virtual.ruler" = { bg = "bg-highlight" }
+"ui.virtual.whitespace" = { fg = "bright-black" }
+"ui.virtual.indent-guide" = { fg = "bright-black" }
+"ui.virtual.inlay-hint" = { fg = "gray", bg = "bg-highlight" }
+
+"ui.gutter" = { bg = "background" }
+
+# Syntax
+"comment" = { fg = "gray", modifiers = ["italic"] }
+"variable" = "foreground"
+"variable.builtin" = "red"
+"variable.parameter" = "foreground"
+"variable.other.member" = "cyan"
+"constant" = "yellow"
+"constant.builtin" = "yellow"
+"constant.character" = "green"
+"constant.character.escape" = "cyan"
+"constant.numeric" = "yellow"
+"string" = "green"
+"string.regexp" = "cyan"
+"string.special" = "blue"
+"label" = "magenta"
+"keyword" = "magenta"
+"keyword.control" = "magenta"
+"keyword.operator" = "cyan"
+"keyword.directive" = "magenta"
+"keyword.function" = "magenta"
+"operator" = "cyan"
+"function" = "blue"
+"function.builtin" = "blue"
+"function.macro" = "cyan"
+"function.method" = "blue"
+"tag" = "red"
+"type" = "yellow"
+"type.builtin" = "yellow"
+"type.enum.variant" = "cyan"
+"constructor" = "blue"
+"namespace" = "yellow"
+"attribute" = "cyan"
+"special" = "blue"
+
+"punctuation" = "foreground"
+"punctuation.delimiter" = "foreground"
+"punctuation.bracket" = "foreground"
+
+# Markup
+"markup.heading" = { fg = "blue", modifiers = ["bold"] }
+"markup.list" = "red"
+"markup.bold" = { fg = "yellow", modifiers = ["bold"] }
+"markup.italic" = { fg = "magenta", modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "cyan", modifiers = ["underlined"] }
+"markup.link.text" = "red"
+"markup.quote" = "gray"
+"markup.raw" = "green"
+
+# Diagnostics / diff
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "yellow"
+
+"diagnostic.error" = { underline = { color = "red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "yellow", style = "curl" } }
+"diagnostic.info" = { underline = { color = "blue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "cyan", style = "curl" } }
+
+"error" = "red"
+"warning" = "yellow"
+"info" = "blue"
+"hint" = "cyan"
+
+[palette]
+background = "#101010"
+foreground = "#ededed"
+"bg-highlight" = "#1a1a1a"
+white = "#ededed"
+gray = "#a1a1a1"
+"bright-black" = "#676767"
+black = "#000000"
+red = "#f75f8f"
+green = "#62c073"
+yellow = "#ff9907"
+blue = "#52a8ff"
+magenta = "#c472fb"
+cyan = "#1da9b0"
+selection = "#264564"

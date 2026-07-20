@@ -1,0 +1,13 @@
+[language-server.ols]
+command = "ols"
+
+[[language]]
+name = "odin"
+scope = "source.odin"
+injection-regex = "odin"
+file-types = ["odin"]
+comment-token = "//"
+indent = { tab-width = 4, unit = "\t" }
+language-servers = ["ols"]
+auto-format = true
+formatter = { command = "odinfmt" }
