@@ -7,6 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "focus_follows_mouse": {
+    "enabled": true
+  },
+  "bottom_dock_layout": "contained",
   "agent_servers": {
     "claude-acp": {
       "default_config_options": {
@@ -16,8 +20,29 @@
     }
   },
   "semantic_tokens": "combined",
+  "global_lsp_settings": {
+    "semantic_token_rules": [
+      { "token_type": "function", "token_modifiers": ["declaration"], "foreground_color": "#52a8ff" },
+      { "token_type": "function", "token_modifiers": ["definition"], "foreground_color": "#52a8ff" },
+      { "token_type": "method", "token_modifiers": ["declaration"], "foreground_color": "#52a8ff" },
+      { "token_type": "method", "token_modifiers": ["definition"], "foreground_color": "#52a8ff" },
+      { "token_type": "function", "foreground_color": "#ededed" },
+      { "token_type": "method", "foreground_color": "#ededed" },
+      { "token_type": "variable", "foreground_color": "#ededed" },
+      { "token_type": "parameter", "foreground_color": "#ededed" },
+      { "token_type": "property", "foreground_color": "#ededed" },
+      { "token_type": "type", "foreground_color": "#ededed" },
+      { "token_type": "class", "foreground_color": "#ededed" },
+      { "token_type": "interface", "foreground_color": "#ededed" },
+      { "token_type": "struct", "foreground_color": "#ededed" },
+      { "token_type": "enum", "foreground_color": "#ededed" },
+      { "token_type": "typeParameter", "foreground_color": "#ededed" },
+      { "token_type": "enumMember", "foreground_color": "#ededed" },
+      { "token_type": "number", "foreground_color": "#f59e0b" }
+    ]
+  },
   "icon_theme": "Monospace Icon Theme - Dark",
-  "vim_mode": true,
+  "helix_mode": true,
   "ssh_connections": [
     {
       "host": "cuda-dev.us-central1-a.omscs-gpu",
@@ -38,6 +63,7 @@
     "dock": "left"
   },
   "project_panel": {
+    "button": true,
     "dock": "left",
     "hide_gitignore": false,
     "hide_hidden": false,
@@ -52,7 +78,7 @@
     "mode": "eager",
   },
   "agent": {
-    "terminal_init_command": "",
+    "terminal_init_command": "pi",
     "dock": "right",
     "default_model": {
       "provider": "google",
@@ -69,10 +95,28 @@
         "arguments": ["lsp", "--stdio"],
       },
     },
+    "tailwindcss-language-server": {
+      "initialization_options": {
+        "experimental": {
+          "classRegex": [
+            "(?:const|let|var)\\s+\\w+\\s*=\\s*['\"`]([^'\"`]*?)['\"`]",
+            "(?:className|styles|classes)\\s*:\\s*['\"`]([^'\"`]*?)['\"`]",
+            "cva\\(\\s*['\"`]([^'\"`]*)['\"`]",
+            ":\\s*['\"`]([^'\"`]*?)['\"`]",
+          ],
+        },
+      },
+    },
   },
   "languages": {
     "Spec": {
       "show_edit_predictions": false,
+    },
+    "TypeScript": {
+      "language_servers": ["...", "tailwindcss-language-server"],
+    },
+    "TSX": {
+      "language_servers": ["...", "tailwindcss-language-server"],
     },
     "Svelte": {
       "inlay_hints": {
@@ -90,6 +134,9 @@
         "background_coloring": "disabled",
       },
     },
+    "Bash": {
+      "semantic_tokens": "off",
+    },
   },
   "diagnostics": {
     "inline": {
@@ -97,12 +144,16 @@
     },
   },
   "git_panel": {
+    "group_by": "none",
     "dock": "left",
     "tree_view": true,
   },
   "terminal": {
     "dock": "right",
     "font_family": "Menlo",
+    "env": {
+      "CONTEXT_MODE_PLATFORM": "pi",
+    },
   },
   "minimap": {
     "show": "never",
@@ -116,5 +167,41 @@
     "mode": "system",
     "light": "One Light",
     "dark": "Vercel Dark",
+  },
+  // Match the Helix Vercel Dark syntax palette.
+  "experimental.theme_overrides": {
+    "syntax": {
+      "comment": { "color": "#a1a1a1", "font_style": "italic" },
+      "keyword": { "color": "#8b5cf6" },
+      "keyword.operator": { "color": "#ededed" },
+      "variable": { "color": "#ededed" },
+      "variable.parameter": { "color": "#ededed" },
+      "property": { "color": "#ededed" },
+      "type": { "color": "#ededed" },
+      "type.builtin": { "color": "#ededed" },
+      "constructor": { "color": "#ededed" },
+      "namespace": { "color": "#ededed" },
+      "function": { "color": "#52a8ff" },
+      "function.definition": { "color": "#52a8ff" },
+      "function.method": { "color": "#52a8ff" },
+      "function.call": { "color": "#ededed" },
+      "function.method.call": { "color": "#ededed" },
+      "string": { "color": "#00ac3a" },
+      "string.regex": { "color": "#00ac3a" },
+      "string.special": { "color": "#00ac3a" },
+      "string.escape": { "color": "#00aa95" },
+      "number": { "color": "#f59e0b" },
+      "boolean": { "color": "#f59e0b" },
+      "constant": { "color": "#f59e0b" },
+      "constant.builtin": { "color": "#f59e0b" },
+      "attribute": { "color": "#00aa95" },
+      "tag": { "color": "#f32e40" },
+      "label": { "color": "#f12b82" },
+      "punctuation": { "color": "#ededed" },
+      "punctuation.bracket": { "color": "#ededed" },
+      "punctuation.delimiter": { "color": "#ededed" },
+      "punctuation.special": { "color": "#ededed" },
+      "operator": { "color": "#ededed" },
+    },
   },
 }

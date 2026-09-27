@@ -1,3 +1,7 @@
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
 [language-server.ols]
 command = "ols"
 
@@ -11,3 +15,8 @@ indent = { tab-width = 4, unit = "\t" }
 language-servers = ["ols"]
 auto-format = true
 formatter = { command = "odinfmt" }
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server"]
+auto-format = true

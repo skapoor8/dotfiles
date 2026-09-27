@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+# Re-run whenever the managed global Mise configuration changes.
+# config hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "mise is required before applying these dotfiles." >&2
+  echo "Install it from https://mise.jdx.dev/getting-started.html and re-run chezmoi apply." >&2
+  exit 1
+fi
+
+mise install

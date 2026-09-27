@@ -1,0 +1,119 @@
+[tools]
+bun = "1"
+"cargo:https://github.com/posaune0423/mdv" = "branch:main"
+"cargo:lsp-ai" = "latest"
+"cargo:mdcat" = "latest"
+delta = "latest"
+fzf = "latest"
+gh = "latest"
+"github:agavra/tuicr" = "latest"
+"github:ushironoko/octorus" = "latest"
+glow = "latest"
+helix = "latest"
+lazygit = "latest"
+neovim = "0.11.3"
+node = "22"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+"npm:@mermaid-js/mermaid-cli" = "latest"
+"npm:context-mode" = "latest"
+rust = "stable"
+sd = "latest"
+"ubi:DanielGavin/ols" = "latest"
+watchexec = "latest"
+yazi = "latest"
+zellij = "latest"
+
+[env]
+PUPPETEER_EXECUTABLE_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+MDV_MERMAID_CMD = "{{env.HOME}}/.local/share/mise/installs/npm-mermaid-js-mermaid-cli/latest/node_modules/.bin/mmdc"
+
+[tasks."dotfiles:push"]
+description = "Capture, review, commit, and push managed dotfiles"
+run = '''
+bash -euo pipefail <<'BASH'
+source_dir="$(chezmoi source-path)"
+
+if [[ -n "$(git -C "$source_dir" status --porcelain)" ]]; then
+  echo "The chezmoi source repository already has uncommitted changes:" >&2
+  git -C "$source_dir" status --short >&2
+  echo "Commit, discard, or stash them before running dotfiles:push." >&2
+  exit 1
+fi
+
+targets=(
+  "$HOME/.config/ghostty"
+  "$HOME/.config/helix"
+  "$HOME/.config/zed"
+  "$HOME/.config/zellij"
+  "$HOME/.config/glow/vercel-dark.json"
+  "$HOME/.config/yazi/yazi.toml"
+  "$HOME/.config/yazi/theme.toml"
+  "$HOME/.config/yazi/vercel-dark.tmTheme"
+  "$HOME/.config/yazi/package.toml"
+  "$HOME/.config/mise/config.toml"
+  "$HOME/.config/helix/runtime/queries/javascript/highlights.scm"
+  "$HOME/.config/helix/runtime/queries/typescript/highlights.scm"
+  "$HOME/.config/helix/runtime/queries/tsx/highlights.scm"
+  "$HOME/.pi/agent/settings.json"
+  "$HOME/.pi/agent/themes/vercel-dark.json"
+  "$HOME/.config/nvim"
+)
+
+chezmoi re-add "${targets[@]}"
+
+if [[ -z "$(git -C "$source_dir" status --porcelain)" ]]; then
+  echo "No managed dotfile changes to push."
+  exit 0
+fi
+
+git -C "$source_dir" diff --check
+git -C "$source_dir" status --short
+git -C "$source_dir" --no-pager diff --stat
+git -C "$source_dir" --no-pager diff --color=always
+
+read -r -p "Commit and push these changes? [y/N] " answer
+if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+  echo "Changes remain in $source_dir for manual review."
+  exit 0
+fi
+
+read -r -p "Commit message [chore: sync dotfiles]: " message
+message="${message:-chore: sync dotfiles}"
+
+git -C "$source_dir" add --all
+git -C "$source_dir" commit -m "$message"
+git -C "$source_dir" push
+BASH
+'''
+
+[tasks."dotfiles:pull"]
+description = "Pull, review, and apply dotfiles"
+run = '''
+bash -euo pipefail <<'BASH'
+source_dir="$(chezmoi source-path)"
+
+if [[ -n "$(git -C "$source_dir" status --porcelain)" ]]; then
+  echo "The chezmoi source repository has uncommitted changes:" >&2
+  git -C "$source_dir" status --short >&2
+  echo "Resolve them before pulling." >&2
+  exit 1
+fi
+
+chezmoi git pull -- --autostash --rebase
+
+if chezmoi verify >/dev/null 2>&1; then
+  echo "Live dotfiles already match the repository."
+  exit 0
+fi
+
+chezmoi --no-pager diff
+
+read -r -p "Apply these changes to this machine? [y/N] " answer
+if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+  echo "Nothing applied."
+  exit 0
+fi
+
+chezmoi apply
+BASH
+'''

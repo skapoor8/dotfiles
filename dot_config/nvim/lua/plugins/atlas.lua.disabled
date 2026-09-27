@@ -1,0 +1,15 @@
+-- https://github.com/emrearmagan/atlas.nvim
+return {
+  {
+    "emrearmagan/atlas.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "MeanderingProgrammer/render-markdown.nvim",
+    },
+    opts = {
+      providers = {
+        github = {},
+      },
+    },
+  },
+}

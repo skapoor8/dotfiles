@@ -1,0 +1,30 @@
+{
+  "lastChangelogVersion": "0.84.4",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-flash",
+  "theme": "vercel-dark",
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:@narumitw/pi-btw",
+    "npm:pi-lens",
+    "npm:pi-web-access",
+    "npm:pi-meridian-extension@0.2.2",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:context-mode",
+    "npm:@tintinweb/pi-subagents",
+    "npm:pi-schedule-prompt",
+    "npm:@difflab/pi"
+  ],
+  "hideThinkingBlock": true,
+  "steeringMode": "all",
+  "showCacheMissNotices": false,
+  "quietStartup": true,
+  "warnings": {
+    "anthropicExtraUsage": true
+  },
+  "tuiMode": "regular",
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "collapseChangelog": true
+}

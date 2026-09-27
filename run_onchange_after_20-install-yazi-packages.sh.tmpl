@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+# Re-run whenever Yazi's managed package manifest changes.
+# package hash: {{ include "dot_config/yazi/package.toml" | sha256sum }}
+
+if command -v mise >/dev/null 2>&1; then
+  mise exec -- ya pkg install
+elif command -v ya >/dev/null 2>&1; then
+  ya pkg install
+else
+  echo "Yazi is not installed; run mise install and re-run chezmoi apply." >&2
+  exit 1
+fi

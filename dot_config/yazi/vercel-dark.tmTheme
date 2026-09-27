@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Vercel Dark</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key><string>#101010</string>
+        <key>foreground</key><string>#EDEDED</string>
+        <key>caret</key><string>#52A8FF</string>
+        <key>selection</key><string>#264564</string>
+        <key>invisibles</key><string>#676767</string>
+        <key>lineHighlight</key><string>#1A1A1A</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Comments</string>
+      <key>scope</key><string>comment, punctuation.definition.comment</string>
+      <key>settings</key><dict><key>foreground</key><string>#A1A1A1</string><key>fontStyle</key><string>italic</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Keywords</string>
+      <key>scope</key><string>keyword, storage.type, storage.modifier</string>
+      <key>settings</key><dict><key>foreground</key><string>#8B5CF6</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Function declarations</string>
+      <key>scope</key><string>entity.name.function, meta.function entity.name.function, meta.function.method entity.name.function</string>
+      <key>settings</key><dict><key>foreground</key><string>#52A8FF</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Function calls</string>
+      <key>scope</key><string>meta.function-call, variable.function, support.function, support.function.any-method</string>
+      <key>settings</key><dict><key>foreground</key><string>#EDEDED</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Variables and properties</string>
+      <key>scope</key><string>variable, variable.parameter, variable.other.property, variable.other.object.property, meta.object-literal.key</string>
+      <key>settings</key><dict><key>foreground</key><string>#EDEDED</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Types</string>
+      <key>scope</key><string>entity.name.type, entity.name.class, entity.name.struct, entity.name.enum, entity.other.inherited-class, support.type, support.class, meta.type.annotation</string>
+      <key>settings</key><dict><key>foreground</key><string>#EDEDED</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Strings</string>
+      <key>scope</key><string>string, punctuation.definition.string</string>
+      <key>settings</key><dict><key>foreground</key><string>#00AC3A</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Escapes</string>
+      <key>scope</key><string>constant.character.escape</string>
+      <key>settings</key><dict><key>foreground</key><string>#00AA95</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Constants and numbers</string>
+      <key>scope</key><string>constant, constant.numeric, constant.language, constant.other</string>
+      <key>settings</key><dict><key>foreground</key><string>#F59E0B</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Attributes</string>
+      <key>scope</key><string>entity.other.attribute-name, meta.decorator, meta.annotation</string>
+      <key>settings</key><dict><key>foreground</key><string>#00AA95</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Tags</string>
+      <key>scope</key><string>entity.name.tag</string>
+      <key>settings</key><dict><key>foreground</key><string>#F32E40</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Labels</string>
+      <key>scope</key><string>entity.name.label</string>
+      <key>settings</key><dict><key>foreground</key><string>#F12B82</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Operators and punctuation</string>
+      <key>scope</key><string>keyword.operator, punctuation, meta.brace, meta.delimiter</string>
+      <key>settings</key><dict><key>foreground</key><string>#EDEDED</string></dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Invalid</string>
+      <key>scope</key><string>invalid, invalid.illegal</string>
+      <key>settings</key><dict><key>foreground</key><string>#F32E40</string></dict>
+    </dict>
+  </array>
+  <key>uuid</key>
+  <string>7C52B45D-4259-4C9A-9CF7-D1FFBEE2A0C1</string>
+</dict>
+</plist>

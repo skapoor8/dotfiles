@@ -1,0 +1,40 @@
+[mgr]
+# Pane width ratio in eighths: [parent, current, preview]
+# You asked for 1/2 : 2/8 : 5/8, which sums to 11/8 (>100%), so I read the
+# first as 1/8 (likely typo for 1/2): 1/8 : 2/8 : 5/8 = 100% -> [1, 2, 5]
+#   parent 12.5% | current 25% | preview 62.5%  (3rd pane = preview)
+# If you really meant the first pane to be half, change to [4, 2, 5].
+ratio = [1, 2, 5]
+
+# Open text files with Helix instead of $EDITOR (nvim).
+[opener]
+edit = [
+  { run = 'hx %s', desc = "Edit (helix)", block = true, for = "unix" },
+]
+
+# Full-screen Markdown viewer: posaune0423/mdv, which renders the document through the
+# Kitty graphics protocol. Zellij 0.45+ forwards that protocol to the host terminal
+# (`support_kitty_graphics_protocol` defaults to on when the host terminal supports it),
+# which is what makes this usable inside a Zellij pane.
+mdv = [
+  { run = 'mdv %s', desc = "mdv (graphics)", block = true, for = "unix" },
+]
+
+[open]
+# Enter must stay on the `edit` opener (Helix), which is what the default rule does for
+# `mime = "text/*"` -> use = [ "edit", "reveal" ]. Yazi's `open` runs the FIRST opener in
+# `use`, so listing `open` first here would make Enter hand Markdown to macOS `open`.
+# This mirrors the default text rule and only inserts mdv into the "open with" menu (O).
+prepend_rules = [
+  { url = "*.{md,markdown}", use = [ "edit", "mdv", "reveal" ] },
+]
+
+# Wrap long lines in the code preview instead of truncating them.
+[preview]
+wrap = "yes"
+
+[plugin]
+# Markdown hover preview: piper + Glow, using the shared Vercel Dark palette.
+prepend_previewers = [
+  { url = "*.{md,markdown}", run = 'piper -- CLICOLOR_FORCE=1 glow -w="$w" -s="$HOME/.config/glow/vercel-dark.json" "$1"' },
+]

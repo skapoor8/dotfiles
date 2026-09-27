@@ -1,0 +1,3 @@
+[mgr]
+# Syntax palette for Yazi's built-in code previewer.
+syntect_theme = "/Users/siddharthkapoor/.config/yazi/vercel-dark.tmTheme"

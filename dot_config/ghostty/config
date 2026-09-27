@@ -1,1 +1,11 @@
 theme = vercel-dark
+
+# Tabbed titlebar: tabs integrate into the native macOS titlebar.
+macos-titlebar-style = tabs
+
+# Hotkey quick terminal: Ctrl+Space toggles a dropdown terminal pinned to the
+# right edge, 33% of screen width, full screen height.
+keybind = global:ctrl+space=toggle_quick_terminal
+quick-terminal-position = right
+quick-terminal-size = 33%
+quick-terminal-screen = main
