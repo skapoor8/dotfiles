@@ -8,12 +8,13 @@
     "npm:@narumitw/pi-btw",
     "npm:pi-lens",
     "npm:pi-web-access",
-    "npm:pi-meridian-extension@0.2.2",
+    "npm:pi-meridian-extension",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:context-mode",
     "npm:@tintinweb/pi-subagents",
     "npm:pi-schedule-prompt",
-    "npm:@difflab/pi"
+    "npm:@difflab/pi",
+    "npm:pi-cursor-sdk"
   ],
   "hideThinkingBlock": true,
   "steeringMode": "all",
