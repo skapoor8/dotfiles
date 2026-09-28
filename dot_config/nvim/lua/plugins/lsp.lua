@@ -3,7 +3,7 @@
 --   helix                              neovim
 --   -----------------------------------------------------------------
 --   typescript-language-server         vtsls          (same tsserver engine)
---   gopls + golangci-lint-lsp          gopls + golangci_lint_ls
+--   gopls                              gopls
 --   rust-analyzer                      rust-analyzer  (via rustaceanvim)
 --   ty / ruff / jedi / pylsp           pyright + ruff (jedi opt-in below)
 --
@@ -23,19 +23,39 @@ return {
       codelens = { enabled = true },
       servers = {
         -----------------------------------------------------------------
+        -- Lua
+        -----------------------------------------------------------------
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = { callSnippet = "Replace" },
+              diagnostics = { globals = { "vim" } },
+              workspace = {
+                checkThirdParty = false,
+                library = vim.api.nvim_get_runtime_file("", true),
+              },
+            },
+          },
+        },
+
+        -----------------------------------------------------------------
         -- Go
         -----------------------------------------------------------------
-        -- gopls comes from the mise shim; settings are inherited from the
-        -- lang.go extra (gofumpt, staticcheck, full hints, analyses).
+        -- gopls comes from the mise shim. Keep diagnostics close to editor
+        -- defaults for now: no Staticcheck and no extra LazyVim analyses.
         gopls = {
           mason = false,
-        },
-        -- Helix runs golangci-lint-lsp next to gopls. Only attach when the
-        -- server binary is actually on PATH, otherwise nvim reports a failure
-        -- on every Go buffer.
-        golangci_lint_ls = {
-          mason = false,
-          enabled = vim.fn.executable("golangci-lint-langserver") == 1,
+          settings = {
+            gopls = {
+              staticcheck = false,
+              analyses = {
+                nilness = false,
+                unusedparams = false,
+                unusedwrite = false,
+                useany = false,
+              },
+            },
+          },
         },
 
         -----------------------------------------------------------------
@@ -48,6 +68,29 @@ return {
         },
       },
     },
+  },
+
+  -----------------------------------------------------------------------
+  -- Go
+  -----------------------------------------------------------------------
+  -- LazyVim's Go extra adds golangci-lint diagnostics and goimports/gofumpt
+  -- formatters. Keep Go editing to gopls only so diagnostics match quieter
+  -- editors like Zed/Helix.
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = function(_, opts)
+      opts.linters_by_ft = opts.linters_by_ft or {}
+      opts.linters_by_ft.go = nil
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.formatters_by_ft = opts.formatters_by_ft or {}
+      opts.formatters_by_ft.go = nil
+    end,
   },
 
   -----------------------------------------------------------------------
@@ -65,15 +108,17 @@ return {
   },
 
   -----------------------------------------------------------------------
-  -- Don't let mason fetch toolchain binaries mise already manages.
+  -- Keep editor tooling available through mason, but don't let mason fetch
+  -- toolchain binaries mise already manages.
   -----------------------------------------------------------------------
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       opts.ensure_installed = vim.tbl_filter(function(pkg)
-        return not vim.tbl_contains({ "gopls", "rust-analyzer" }, pkg)
+        return not vim.tbl_contains({ "gopls", "rust-analyzer", "golangci-lint", "goimports", "gofumpt" }, pkg)
       end, opts.ensure_installed)
+      vim.list_extend(opts.ensure_installed, { "lua-language-server", "stylua" })
     end,
   },
 }
