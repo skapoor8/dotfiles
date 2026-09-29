@@ -14,7 +14,8 @@
     "npm:@tintinweb/pi-subagents",
     "npm:pi-schedule-prompt",
     "npm:@difflab/pi",
-    "npm:pi-cursor-sdk"
+    "npm:pi-cursor-sdk",
+    "npm:@gitawego/pi-lsp"
   ],
   "hideThinkingBlock": true,
   "steeringMode": "all",

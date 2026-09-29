@@ -64,7 +64,8 @@ targets=(
 chezmoi re-add "${targets[@]}"
 
 if [[ -z "$(git -C "$source_dir" status --porcelain)" ]]; then
-  echo "No managed dotfile changes to push."
+  echo "No new dotfile changes; pushing any existing local commits."
+  git -C "$source_dir" push
   exit 0
 fi
 
