@@ -7,6 +7,16 @@ return {
       {
         "esmuellert/codediff.nvim",
         opts = {
+          highlights = {
+            -- Visible backgrounds tinted from Vercel Dark green (#00ac3a) and red (#f32e40).
+            line_insert = "#123f25",
+            line_delete = "#4c1b25",
+            -- CodeDiff always adds character-level extmarks; keep their tint
+            -- only slightly brighter than the full-line backgrounds.
+            char_insert = "#18502e",
+            char_delete = "#5c2530",
+          },
+          diff = { highlight_added_deleted_files = true },
           explorer = { view_mode = "tree", width = 25 }, -- Match neo-tree.
         },
       },
@@ -24,27 +34,48 @@ return {
     },
     opts = {},
     init = function()
+      -- CodeDiff forces nowrap when creating and rendering panes to align scrolling.
+      -- It has no wrap option, so reapply it after renders; wrapped rows may
+      -- affect synchronized scrolling. Also handle one-sided added/deleted files.
       local function wrap_diff_panes(tabpage)
         local original, modified = require("codediff.ui.lifecycle").get_windows(tabpage)
-        for _, win in ipairs({ original, modified }) do
+        for _, win in pairs({ original, modified }) do
           if win and vim.api.nvim_win_is_valid(win) then
             vim.wo[win].wrap = true
           end
         end
       end
 
+      local function wrap_after_render(tabpage)
+        -- CodeDiff schedules rendering from these events. Queue one turn behind
+        -- that render so its 'nowrap' reset cannot undo the setting.
+        vim.schedule(function()
+          vim.schedule(function()
+            for _, tab in ipairs(tabpage and { tabpage } or vim.api.nvim_list_tabpages()) do
+              if vim.api.nvim_tabpage_is_valid(tab) then
+                wrap_diff_panes(tab)
+              end
+            end
+          end)
+        end)
+      end
+
       local group = vim.api.nvim_create_augroup("CodeDiffWrapLines", { clear = true })
       vim.api.nvim_create_autocmd("User", {
         group = group,
-        pattern = "CodeDiffOpen",
+        pattern = { "CodeDiffOpen", "CodeDiffFileSelect" },
         callback = function(event)
-          -- CodeDiff schedules its first render after this event; reapply afterwards.
-          vim.schedule(function()
-            wrap_diff_panes(event.data.tabpage)
-          end)
+          wrap_after_render(event.data and event.data.tabpage)
         end,
       })
-      -- CodeDiff resets 'wrap' during re-renders (including file switches).
+      vim.api.nvim_create_autocmd("User", {
+        group = group,
+        pattern = "CodeDiffVirtualFileLoaded",
+        callback = function()
+          wrap_after_render()
+        end,
+      })
+      -- Keep wrapping if another re-render follows these events.
       vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "CursorMoved" }, {
         group = group,
         callback = function()
