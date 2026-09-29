@@ -1,7 +1,7 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-source "$HOME/google-cloud-sdk/path.zsh.inc"
-source "$HOME/google-cloud-sdk/completion.zsh.inc"
+[[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]] && source "$HOME/google-cloud-sdk/path.zsh.inc"
+[[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]] && source "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 # Added by Toolbox App
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"

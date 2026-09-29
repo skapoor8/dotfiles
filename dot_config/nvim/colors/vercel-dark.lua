@@ -17,6 +17,8 @@ local c = {
   fg = "#ededed",
   bg_highlight = "#1a1a1a",
   bg_float = "#1a1a1a",
+  diff_add = "#0c2b17", -- Dark tint of Vercel green (#00ac3a).
+  diff_delete = "#35151a", -- Dark tint of Vercel red (#f32e40).
   black = "#000000",
   white = "#ededed",
   gray = "#a1a1a1",
@@ -346,9 +348,9 @@ local hl = {
   ---------------------------------------------------------------------------
   -- Diff / git
   ---------------------------------------------------------------------------
-  DiffAdd = { fg = c.green, bg = c.bg_highlight },
+  DiffAdd = { fg = c.green, bg = c.diff_add },
   DiffChange = { fg = c.yellow, bg = c.bg_highlight },
-  DiffDelete = { fg = c.red, bg = c.bg_highlight },
+  DiffDelete = { fg = c.red, bg = c.diff_delete },
   DiffText = { fg = c.bg, bg = c.yellow },
   Added = { fg = c.green },
   Changed = { fg = c.yellow },
